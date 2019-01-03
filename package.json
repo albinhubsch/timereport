@@ -1,0 +1,29 @@
+{
+  "name": "timereport",
+  "version": "1.0.0",
+  "description": "Report worked hours from the terminal",
+  "main": "./bin/index.js",
+  "bin": {
+    "timereport": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albinhubsch/timereport.git"
+  },
+  "author": "Albin Hubsch <albin.hubsch@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albinhubsch/timereport/issues"
+  },
+  "homepage": "https://github.com/albinhubsch/timereport#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chalk": "^2.4.1",
+    "moment": "^2.23.0",
+    "node-promisify": "^1.2.0",
+    "prompt": "^1.0.0"
+  }
+}
