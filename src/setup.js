@@ -10,18 +10,26 @@ async function setup(){
 
     prompt.message = null
     prompt.start()
-    const { name } = await prompt.getAsync([
+    const { name, url } = await prompt.getAsync([
         {
             properties: {
                 name: {
                     description: chalk.green('Spreadsheet page Name (Probably your firstname)')
                 }
             }
+        },
+        {
+            properties: {
+                url: {
+                    description: chalk.green('Server url')
+                }
+            }
         }
     ])
 
     const configData = {
-        page: name
+        page: name,
+        url: url
     }
 
     await config.setConfig(configData)
