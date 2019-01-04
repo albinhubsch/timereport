@@ -1,8 +1,10 @@
 const config = require('./config')
 const chalk = require('chalk')
-const rl = require('readline')
 const prompt = require('prompt')
-const promisify = require("node-promisify")
+const fs = require('fs')
+const promisify = require('node-promisify')
+const auth = require('./auth')
+const { google } = require("googleapis");
 
 prompt.getAsync = promisify(prompt.get)
 
@@ -10,7 +12,7 @@ async function setup(){
 
     prompt.message = null
     prompt.start()
-    const { name, url } = await prompt.getAsync([
+    const { name, sid, credentials } = await prompt.getAsync([
         {
             properties: {
                 name: {
@@ -20,8 +22,15 @@ async function setup(){
         },
         {
             properties: {
-                url: {
-                    description: chalk.green('Server url')
+                sid: {
+                    description: chalk.green('Spreadsheet id')
+                }
+            }
+        },
+        {
+            properties: {
+                credentials: {
+                    description: chalk.green('Path to credentials')
                 }
             }
         }
@@ -29,12 +38,37 @@ async function setup(){
 
     const configData = {
         page: name,
-        url: url
+        sid: sid,
+        credentials: credentials
     }
 
     await config.setConfig(configData)
 
+    fs.readFile(`${credentials}`, (err, content) => {
+        if (err) return console.log('Error loading client secret file:', err)
+        // Authorize a client with credentials, then call the Google Sheets API.
+        auth.authorize(JSON.parse(content), testReadFile);
+    })
+
     console.log(`\n${chalk.bgGreen(" == Config saved == ")}\n`)
+}
+
+function testReadFile(auth) {
+    const conf = config.getConfig()
+    const sheets = google.sheets({ version: 'v4', auth });
+    sheets.spreadsheets.values.get({
+        spreadsheetId: conf.sid,
+        range: `${conf.page}!A1:1`,
+    }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const rows = res.data.values;
+        if (rows.length) {
+            console.log(chalk.bgGreen('\n Everything works! \n'));
+            process.exit(0)
+        } else {
+            console.log('No data found.');
+        }
+    });
 }
 
 module.exports = setup

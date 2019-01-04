@@ -6,6 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .timereport-config
+token.json
+credentials.json
 
 # Runtime data
 pids

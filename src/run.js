@@ -9,7 +9,7 @@ async function run(args){
     if(args[0] === 'setup' || !config.hasConfig()){
         // RUN SETUP PROCESS
         await setup()
-        process.exit(0)
+        return true
     }
 
     // Parse line of time report
@@ -19,7 +19,7 @@ async function run(args){
 
     post(postData)
 
-    process.exit(0)
+    return true
 
 }
 
