@@ -58,11 +58,27 @@ function testReadFile(auth) {
     const sheets = google.sheets({ version: 'v4', auth });
     sheets.spreadsheets.values.get({
         spreadsheetId: conf.sid,
-        range: `${conf.page}!A1:1`,
-    }, (err, res) => {
+        range: `${conf.page}!A1:A`,
+    }, async (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
         const rows = res.data.values;
         if (rows.length) {
+
+            const projects = []
+            for (let index = 4; index < rows.length - 1; index++) {
+                if (rows[index][0]){
+                    projects.push({
+                        title: rows[index][0],
+                        index: index + 1
+                    })
+                }
+            }
+            
+            await config.setConfig({
+                ...conf,
+                projects: projects
+            });
+
             console.log(chalk.bgGreen('\n Everything works! \n'));
             process.exit(0)
         } else {

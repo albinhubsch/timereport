@@ -19,7 +19,7 @@ async function post(data){
             let values = [[data.duration]]
 
             const resource = { values }
-            const row = 21, col = getColLetters(moment(data.date).dayOfYear())
+            const row = data.projectIndex, col = getColLetters(moment(data.date).dayOfYear())
 
             sheets.spreadsheets.values.update({
                 spreadsheetId: conf.sid,
