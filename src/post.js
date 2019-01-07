@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const axios = require('axios')
 const config = require('./config')
 const { google } = require("googleapis")

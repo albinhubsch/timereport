@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const config = require('./config')
 const moment = require('moment')
 const chalk = require('chalk')

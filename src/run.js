@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const setup = require('./setup')
 const parse = require('./parse')
 const post = require('./post')
