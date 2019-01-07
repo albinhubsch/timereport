@@ -5,7 +5,7 @@ const fs = require("fs");
 const opn = require("opn");
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
-const TOKEN_PATH = `${process.cwd()}/token.json`;
+const TOKEN_PATH = `${__dirname}/token.json`;
 
 function authorize(credentials, callback) {
     const { client_secret, client_id, redirect_uris } = credentials.installed;

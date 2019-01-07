@@ -5,7 +5,7 @@ const promisify = require("node-promisify")
 
 fs.writeFile = promisify(fs.writeFile)
 
-const PATH = `${process.cwd()}/\.timereport-config`;
+const PATH = `${__dirname}/\.timereport-config`;
 
 function getConfig(){
 
