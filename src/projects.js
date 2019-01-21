@@ -37,8 +37,10 @@ async function projects(data){
                         projects: projects
                     });
 
-                    console.log(chalk.bgGreen('\n Everything works! \n'));
-                    process.exit(0)
+                    projects.map( project => {
+                        console.log(chalk.green(` > ${project}`))
+                    })
+                    return true
                 } else {
                     console.log('No data found.');
                 }
