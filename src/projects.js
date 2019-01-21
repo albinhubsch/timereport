@@ -37,9 +37,11 @@ async function projects(data){
                         projects: projects
                     });
 
+                    console.log('\n')
                     projects.map( project => {
-                        console.log(chalk.green(` > ${project}`))
+                        console.log(chalk.green(` > ${project.title}`))
                     })
+                    console.log('\n')
                     return true
                 } else {
                     console.log('No data found.');
