@@ -4,6 +4,7 @@ const parse = require('./parse')
 const post = require('./post')
 const config = require('./config')
 const chalk = require('chalk')
+const projects = require('./projects')
 
 async function run(args){
 
@@ -22,12 +23,7 @@ async function run(args){
 
     if (args[0] === 'projects' || !config.hasConfig()) {
         // RUN SETUP PROCESS
-        const conf = config.getConfig()
-        console.log('')
-        conf.projects.map( project => {
-            console.log(chalk.blue(` - ${project.title}`))
-        })
-        console.log('')
+        projects()
         return true
     }
 
